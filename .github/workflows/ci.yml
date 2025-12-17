@@ -17,18 +17,18 @@ jobs:
         uses: docker/setup-buildx-action@v3
 
       - name: Start services with Docker Compose
-        run: docker-compose up --build -d
+        run: docker compose up --build -d
 
       - name: Wait for services to be ready
         run: |
           echo "Waiting for services to start..."
           # Give more time for RabbitMQ and DB migrations
           sleep 40
-          docker-compose ps
+          docker compose ps
 
       - name: Check service logs if something goes wrong
         if: failure()
-        run: docker-compose logs
+        run: docker compose logs
 
       - name: Run Unit Tests in Order Service
         run: docker exec order-service poetry run pytest
