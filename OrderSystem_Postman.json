@@ -1,0 +1,107 @@
+{
+	"info": {
+		"_postman_id": "e0e2e2e2-e2e2-e2e2-e2e2-e2e2e2e2e2e2",
+		"name": "Order Processing System",
+		"description": "Collection for testing the Order Processing Microservices",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Create Order",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json();",
+							"if (jsonData.id) {",
+							"    // Set collection variable to be available for other requests in this collection",
+							"    pm.collectionVariables.set(\"ORDER_ID\", jsonData.id);",
+							"    // Also set environment variable just in case an environment is active",
+							"    if (pm.environment.name) {",
+							"        pm.environment.set(\"ORDER_ID\", jsonData.id);",
+							"    }",
+							"    console.log(\"ORDER_ID set to: \" + jsonData.id);",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"customer_id\": \"customer-{{$randomInt}}\",\n    \"items\": [\n        {\n            \"product_id\": \"product-A\",\n            \"quantity\": 1\n        },\n        {\n            \"product_id\": \"product-B\",\n            \"quantity\": 1\n        }\n    ],\n    \"total_amount\": 30.00\n}"
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/api/orders",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"orders"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Order Status",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BASE_URL}}/api/orders/{{ORDER_ID}}",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"orders",
+						"{{ORDER_ID}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Orders",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BASE_URL}}/api/orders",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"orders"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "BASE_URL",
+			"value": "http://localhost:8000",
+			"type": "string"
+		},
+		{
+			"key": "ORDER_ID",
+			"value": "",
+			"type": "string"
+		}
+	]
+}

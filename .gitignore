@@ -1,0 +1,44 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.env
+.venv
+env/
+venv/
+ENV/
+build/
+dist/
+*.egg-info/
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Databases / Docker Data
+*_data/
+/order_data/
+/inventory_data/
+/payment_data/
+/rabbitmq_data/
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+
+# Poetry
+# We don't ignore poetry.lock to ensure consistent dependencies
+.poetry/
+
+# Environment variables
+.env
+.env.*
+!.env.example
+
+# Local leftovers
+bru_backups/
+# OrderSystem_Postman.json # Tracked for sharing
